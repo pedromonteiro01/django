@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, Http404
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 challenges = {
     "january":"january challenge",
@@ -45,6 +46,7 @@ def monthly_challenge(request, month):
             "month_name": month
         })
     except:
-        raise Http404()
+        response_data = render_to_string("404.html")
+        return HttpResponseNotFound(response_data)
     
-# render() always render a success page!
+# render always render a success page!
