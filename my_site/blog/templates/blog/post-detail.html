@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+This Post Title
+{% endblock  %}
+
+{% block css_files  %}
+    <link rel="stylesheet" href="{% static 'blog/post-detail.css' %}">
+{% endblock  %}
+
+{% block content  %}
+    <section id="summary">
+        <h2>Post Title</h2>
+        <article>
+            <img src="{% static 'blog/images/mountains.jpg' %}" alt="Post Title">
+            <address>By Pedro</address>
+            <div>
+                Last updated on <time>July 10th</time>
+            </div>
+        </article>
+    </section>
+
+    <main>
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, a quas. Architecto totam dolor, 
+            corporis at culpa officia quisquam illo 
+            quis voluptatem fugiat saepe neque vero ut a doloremque quia!
+        </p>
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, a quas. Architecto totam dolor, 
+            corporis at culpa officia quisquam illo 
+            quis voluptatem fugiat saepe neque vero ut a doloremque quia!
+        </p>
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, a quas. Architecto totam dolor, 
+            corporis at culpa officia quisquam illo 
+            quis voluptatem fugiat saepe neque vero ut a doloremque quia!
+        </p>
+    </main>
+{% endblock %}
