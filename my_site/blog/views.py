@@ -4,12 +4,12 @@ from datetime import date
 
 # Create your views here.
 
-posts = [
+all_posts = [
     {
         "slug":"hike-in-the-mountains",
         "image":"mountains.jpg",
         "author":"Pedro",
-        "date": date(2021, 7, 21),
+        "date": date(2021, 8, 29),
         "title":"Mountain Hiking",
         "excerpt":"There's nothing like the views you get when hiking the moutains! I wasn't even prepare!",
         "content":"""
@@ -53,7 +53,7 @@ posts = [
         "slug":"into-the-woods",
         "image":"woods.jpg",
         "author":"Pedro",
-        "date": date(2021, 7, 21),
+        "date": date(2021, 3, 16),
         "title":"Nature At Its Best!",
         "excerpt":"Nature is amazing!",
         "content":"""
@@ -72,8 +72,15 @@ posts = [
     }
 ]
 
+def get_date(post):
+    return post['date']
+
 def starting_page(request):
-    return render(request, "blog/index.html")
+    sorted_posts = sorted(all_posts, key=get_date)
+    latest_posts = sorted_posts[-3:]
+    return render(request, "blog/index.html", {
+        "posts":latest_posts
+    })
 
 def posts(request):
     return render(request, "blog/all-posts.html")
