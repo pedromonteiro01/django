@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from datetime import date
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -55,7 +56,7 @@ all_posts = [
         "author":"Pedro",
         "date": date(2021, 3, 16),
         "title":"Nature At Its Best!",
-        "excerpt":"Nature is amazing!",
+        "excerpt":"Nature is amazing! The amount of inspiration I get when walking in the nature is incredible!",
         "content":"""
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci, a quas. Architecto totam dolor, 
             corporis at culpa officia quisquam illo 
@@ -83,7 +84,16 @@ def starting_page(request):
     })
 
 def posts(request):
-    return render(request, "blog/all-posts.html")
+    return render(request, "blog/all-posts.html",{
+        "all_posts":all_posts
+    })
 
 def post_detail(request, slug):
-    return render(request, "blog/post-detail.html")
+    try:
+        identified_post = next(post for post in all_posts if post['slug']==slug)
+        return render(request, "blog/post-detail.html", {
+            "post":identified_post
+        })
+    except:
+        response_data= render_to_string("404.html")
+        return HttpResponseNotFound(response_data)
