@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.fields import BooleanField
+from django.urls import reverse
 
 # Create your models here.
 
@@ -11,6 +12,9 @@ class Book(models.Model):
     author = models.CharField(null=True, max_length=100) # if already created a table, and then add this field,  
                                                         # this value can be null
     is_bestselling = models.BooleanField(default=False)
+    
+def get_absolute_url(self):
+    return reverse("book-detail", args=[self.id])
     
 def __str__(self): # how instances should be outputted
     return f"{self.title} ({self.rating})"

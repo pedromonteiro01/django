@@ -5,5 +5,11 @@ All Books
 {% endblock  %}
 
 {% block content %}
-
+<ul>
+    {% for book in books%}
+    <!--<li><a href="{{book.get_absolute_url}}">{{book.title}}</a> (Rating: {{book.rating}})</li>-->
+    <!-- = -->
+    <li><a href="{%url 'book-detail' book.id %}">{{book.title}}</a> (Rating: {{book.rating}})</li>
+    {% endfor %}
+</ul>
 {% endblock  %}
