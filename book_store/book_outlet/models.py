@@ -13,10 +13,10 @@ class Book(models.Model):
     author = models.CharField(null=True, max_length=100) # if already created a table, and then add this field,  
                                                         # this value can be null
     is_bestselling = models.BooleanField(default=False)
-    slug = models.SlugField(default="", null=False)
+    slug = models.SlugField(default="", null=False, db_index=True) # db_index to best search performance
     
     def get_absolute_url(self):
-        return reverse("book-detail", args=[self.id])
+        return reverse("book-detail", args=[self.slug])
 
     def save(self, *args,**kwargs):
         self.slug = slugify(self.title)

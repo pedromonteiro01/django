@@ -9,7 +9,11 @@ All Books
     {% for book in books%}
     <!--<li><a href="{{book.get_absolute_url}}">{{book.title}}</a> (Rating: {{book.rating}})</li>-->
     <!-- = -->
-    <li><a href="{%url 'book-detail' book.id %}">{{book.title}}</a> (Rating: {{book.rating}})</li>
+    <li><a href="{%url 'book-detail' book.slug %}">{{book.title}}</a> (Rating: {{book.rating}})</li>
     {% endfor %}
 </ul>
+
+<hr>
+<h3>Total number of books: {{num_books}}</h3>
+<p>Average Rating: {{average_rating.rating__avg}}</p>
 {% endblock  %}
