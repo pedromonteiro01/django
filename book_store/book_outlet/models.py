@@ -13,7 +13,9 @@ class Book(models.Model):
     author = models.CharField(null=True, max_length=100) # if already created a table, and then add this field,  
                                                         # this value can be null
     is_bestselling = models.BooleanField(default=False)
-    slug = models.SlugField(default="", null=False, db_index=True) # db_index to best search performance
+    slug = models.SlugField(default="", blank=True, null=False, db_index=True) # db_index to best search performance
+    # with blank=True, the field at the admin panel can be empty
+    #with editable=False, the field doesn't appear at the admin panel
     
     def get_absolute_url(self):
         return reverse("book-detail", args=[self.slug])
