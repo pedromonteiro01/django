@@ -10,7 +10,12 @@ from django.utils.text import slugify
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-
+    
+    def fullname(self):
+        return self.first_name+" "+self.last_name
+    
+    def __str__(self):
+        return self.fullname()
 
 class Book(models.Model):
     title = models.CharField(max_length=50)
