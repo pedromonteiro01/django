@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 
-from .models import Author, Book, Address
+from .models import Author, Book, Address, Country
 
 # Register your models here.
 
@@ -17,3 +17,4 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(Book, BookAdmin)
 admin.site.register(Author)
 admin.site.register(Address)
+admin.site.register(Country)
