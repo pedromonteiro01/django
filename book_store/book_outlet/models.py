@@ -12,7 +12,7 @@ class Country(models.Model):
     code = models.CharField(max_length=2)
     
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} - {self.code}"
     
     class Meta:
         verbose_name_plural = "Countries" #change plural display in admin dashboard
