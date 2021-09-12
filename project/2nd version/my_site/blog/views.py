@@ -117,5 +117,13 @@ def post_detail(request, slug):
         return HttpResponseNotFound(response_data)
 '''
 
-def post_detail(request):
-    
+def post_detail(request, slug):
+    try:
+        identified_post = Post.objects.get(slug=slug)
+        return render(request, "blog/post-detail.html", {
+                "post":identified_post,
+                "post_tags":identified_post.tags.all() #get a list of tags, that is iterable
+            })
+    except:
+        response_data= render_to_string("404.html")
+        return HttpResponseNotFound(response_data)
