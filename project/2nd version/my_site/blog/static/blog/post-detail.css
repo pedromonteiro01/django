@@ -53,6 +53,11 @@ font-weight: bold;
     text-decoration: none;
 }
 
+#summary a:hover,
+#summary a:active{
+    text-decoration: underline;
+}
+
 #summary time {
 font-weight: bold;
 } 
