@@ -3,12 +3,14 @@ from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
 
 from .forms import ReviewForm
 from .models import Review
 
-class ReviewView(FormView):
+
+class ReviewView(CreateView): #form class not needed
+    model = Review
     form_class = ReviewForm
     template_name = "reviews/review.html"
     success_url = "/thank-you"
