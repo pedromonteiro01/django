@@ -3,14 +3,15 @@ from django.views import View
 from django.http import HttpResponseRedirect
 
 from .forms import ProfileForm
+from .models import UserProfile
 
 # Create your views here.
 
 # https://docs.djangoproject.com/en/3.2/topics/http/file-uploads/
-def store_file(file):
+'''def store_file(file):
     with open("temp/image.jpg", "wb+") as dest:
         for chunk in file.chunks():
-            dest.write(chunk)
+            dest.write(chunk)'''
 
 class CreateProfileView(View):
     def get(self, request):
@@ -24,7 +25,8 @@ class CreateProfileView(View):
         submitted_form = ProfileForm(request.POST, request.FILES)
         
         if submitted_form.is_valid():   
-            store_file(request.FILES['image'])
+            profile = UserProfile(image=request.FILES['user_image'])
+            profile.save()
             return HttpResponseRedirect("/profiles")
         
         return render(request, "profiles/create_profile.html", {
