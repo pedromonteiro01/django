@@ -55,6 +55,7 @@ class ThankYouView(TemplateView):
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['message'] = "This works!"
+        
         return context
     
 
@@ -93,6 +94,15 @@ class SingleReviewView(DetailView):
     template_name = "reviews/single_review.html"
     model = Review
     # pk in urls to identify objects
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        loaded_review = self.object # from official docs
+        request = self.request # from official docs
+        favorite_id = request.session['favorite_review']
+        context['is_favorite'] = favorite_id == str(loaded_review.id)
+        
+        return context
     
     
 '''
