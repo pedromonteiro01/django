@@ -186,3 +186,7 @@ def post_detail(request, slug):
         response_data= render_to_string("404.html")
         return HttpResponseNotFound(response_data)
 '''
+
+class ReadLaterView(View):
+    def post(self, request):
+        pass
