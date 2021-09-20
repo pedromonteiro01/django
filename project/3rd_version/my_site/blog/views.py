@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from datetime import date
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
+from django.views import View
+from django.urls import reverse
 
 from .models import Post
 from .forms import CommentForm
@@ -139,15 +141,35 @@ def post_detail(request, slug):
         return HttpResponseNotFound(response_data)
 '''
 
-class SinglePostView(DetailView):
-    template_name = "blog/post-detail.html"
-    model = Post
+class SinglePostView(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post":post,
+            "post_tags":post.tags.all(),
+            "comment_form":CommentForm()
+        }
+        return render(request, "blog/post-detail.html", context)
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["post_tags"] = self.object.tags.all()
-        context["comment_form"] = CommentForm()
-        return context
+    def post(self,request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False) #save will not hit the databasae, it will create a new model instance
+            comment.post = post
+            comment.save()
+            
+            return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
+
+        # if is not valid
+        context = {
+            "post":post,
+            "post_tags":post.tags.all(),
+            "comment_form":CommentForm()
+        }
+        return render(request, "blog/post-detail.html", context)
+            
 
 '''
 def post_detail(request, slug):
